@@ -131,16 +131,16 @@ module.exports = function(grunt) {
         log('\nFile ' + filepath + ' found.');
 
         var destpath = f.dest;
+        var filename = filepath.replace(/(.*)\//gi, '');
+
+        if (destpath.slice(-1) === '/') {
+          destpath = path.join(f.dest, filename);
+        }
         
         // Define the new file extension
         if( options.ext ){
           destpath = destpath.replace( /\.(.*)/ , options.ext);
         }
-        // var filename = filepath.replace(/(.*)\//gi, '');
-
-        // if (destpath.indexOf(filename) === -1) {
-        //   destpath = path.join(f.dest, filename);
-        // }
 
         var source = grunt.file.read(filepath);
         var cssJson = parseCss(source);

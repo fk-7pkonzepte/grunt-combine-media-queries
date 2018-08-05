@@ -49,7 +49,6 @@ Log processed media queries.
 ### Usage Examples
 
 #### Default Options
-In this example, all the css files in `test` are processed and moved to the folder `tmp`
 
 ```js
 grunt.initConfig({
@@ -59,7 +58,8 @@ grunt.initConfig({
     },
     your_target: {
       files: {
-        'tmp': ['test/*.css']
+        'tmp/': ['test/*.css'] // css files in `test` are processed and saved in folder `tmp`. The directory separator is necessary for recognition!
+        'tmp/style.css': 'test/style.css' // style file in `test` are processed and saved in  folder `tmp`
       }
     }
   }
