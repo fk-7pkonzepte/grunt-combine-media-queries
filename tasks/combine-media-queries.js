@@ -131,11 +131,16 @@ module.exports = function(grunt) {
         log('\nFile ' + filepath + ' found.');
 
         var destpath = f.dest;
-        var filename = filepath.replace(/(.*)\//gi, '');
-
-        if (destpath.indexOf(filename) === -1) {
-          destpath = path.join(f.dest, filename);
+        
+        // Define the new file extension
+        if( options.ext ){
+          destpath = destpath.replace( /\.(.*)/ , options.ext);
         }
+        // var filename = filepath.replace(/(.*)\//gi, '');
+
+        // if (destpath.indexOf(filename) === -1) {
+        //   destpath = path.join(f.dest, filename);
+        // }
 
         var source = grunt.file.read(filepath);
         var cssJson = parseCss(source);
@@ -153,7 +158,7 @@ module.exports = function(grunt) {
         processedCSS.media.blank = [];
         processedCSS.keyframes = [];
 
-        grunt.file.write(destpath, cssJson);
+        // grunt.file.write(destpath, cssJson);
 
         // For every rule in the stylesheet...
         cssJson.stylesheet.rules.forEach( function (rule) {
@@ -330,11 +335,6 @@ module.exports = function(grunt) {
         // Check if keyframes were processed and print them
         if (processedCSS.keyframes.length !== 0){
           outputKeyFrames(processedCSS.keyframes);
-        }
-
-        // Define the new file extension
-        if( options.ext ){
-          destpath = destpath.replace( /\.(.*)/ , options.ext);
         }
 
         // Normalize line endings
